@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+		  xmlns:h="http://xmlns.jcp.org/jsf/html"
+		  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	  	  xmlns:f="http://xmlns.jcp.org/jsf/core">
+	  	  
+	<head>  
+        <title>Manage Manufacturers</title>
+        
+		<f:metadata>
+			<f:event listener="#{garageController.loadManufacturers()}"
+				type="preRenderView" />
+		</f:metadata>
+	</head>
+	
+	<body>
+		<br />
+		<h:form>
+			<h:commandButton value="Add Manufacturer" action = "add-manufacturer-form" />
+		</h:form> <br/>
+		
+		<h:dataTable value="#{garageController.manufacturers}" var="garage">
+			<h:column>
+				<f:facet name = "header">
+					<h:outputText value = "Manufacturer Code"/>
+				</f:facet>
+				<h:outputText value = "#{garage.manu_code}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name = "header">
+					<h:outputText value = "Manufacturer Name"/>
+				</f:facet>
+				<h:outputText value = "#{garage.manu_name}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name = "header">
+					<h:outputText value = "Manufacturer Details"/>
+				</f:facet>
+				<h:outputText value = "#{garage.manu_details}"/>
+			</h:column>
+		</h:dataTable>
+	</body>
+</html>
