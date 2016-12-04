@@ -1,0 +1,23 @@
+.manufacTable{   
+/*    border-collapse:collapse;
+   border:1px solid #000000; */
+   padding: 1px;
+}
+
+.manufacTableHeader{
+   color: #FFFFFF;
+   text-align:center;
+   background:none repeat scroll 0 0 #5076FF;
+   border-bottom:1px solid #000000;  
+   padding:2px;
+}
+
+.manufacTableOddRow{
+   text-align:center;
+   background:none repeat scroll 0 0 #C3D7D1;	
+}
+
+.manufacTableEvenRow{
+   text-align:center;
+   background:none repeat scroll 0 0 #F6F6F6;
+}

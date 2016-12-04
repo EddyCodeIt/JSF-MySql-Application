@@ -4,42 +4,57 @@
 		  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 	  	  xmlns:f="http://xmlns.jcp.org/jsf/core">
 	  	  
-	<head>  
+	<h:head>  
+		<h:outputStylesheet library="css" name="style.css"  />
         <title>Manage Manufacturers</title>
         
 		<f:metadata>
 			<f:event listener="#{garageController.loadManufacturers()}"
 				type="preRenderView" />
 		</f:metadata>
-	</head>
+	</h:head>
 	
-	<body>
+	<h:body>
 		<br />
 		<h:form>
 			<h:commandButton value="Add Manufacturer" action = "add-manufacturer-form" />
 		</h:form> <br/>
 		
-		<h:dataTable value="#{garageController.manufacturers}" var="garage">
+		<h:dataTable value="#{garageController.manufacturers}" var="garage"
+					 styleClass = "manufacTable"
+					 headerClass = "manufacTableHeader"
+					 rowClasses = "manufacTableOddRow, manufacTableEvenRow">
 			<h:column>
-				<f:facet name = "header">
+				<f:facet class = "header" name = "header">
 					<h:outputText value = "Manufacturer Code"/>
 				</f:facet>
 				<h:outputText value = "#{garage.manu_code}"/>
 			</h:column>
 			
 			<h:column>
-				<f:facet name = "header">
+				<f:facet class = "header" name = "header">
 					<h:outputText value = "Manufacturer Name"/>
 				</f:facet>
 				<h:outputText value = "#{garage.manu_name}"/>
 			</h:column>
 			
 			<h:column>
-				<f:facet name = "header">
+				<f:facet class = "header" name = "header">
 					<h:outputText value = "Manufacturer Details"/>
 				</f:facet>
 				<h:outputText value = "#{garage.manu_details}"/>
 			</h:column>
+			
+			<h:column>
+				<f:facet class = "header" name = "header">
+					<h:outputText value = "Action"/>
+				</f:facet>
+<!-- https://myfaces.apache.org/wiki/core/user-guide/jsf-and-myfaces-howtos/working-with-tables/executing-methods-from-link-or-button-inside-a-table.html -->
+				<h:link value = "Update" outcome = "update-manufacturer"/><br/>
+				<h:link value = "Delete" outcome = "delete"/>
+			</h:column>
 		</h:dataTable>
-	</body>
+		
+		<br/> <h:link value = "Home" outcome = "index"/><br/>
+	</h:body>
 </html>
