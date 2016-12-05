@@ -17,43 +17,44 @@
 	<h:body>
 		<br />
 		<h:form>
-			<h:commandButton value="Add Manufacturer" action = "add-manufacturer-form" />
-		</h:form> <br/>
-		
-		<h:dataTable value="#{garageController.manufacturers}" var="garage"
-					 styleClass = "manufacTable"
-					 headerClass = "manufacTableHeader"
-					 rowClasses = "manufacTableOddRow, manufacTableEvenRow">
-			<h:column>
-				<f:facet class = "header" name = "header">
-					<h:outputText value = "Manufacturer Code"/>
-				</f:facet>
-				<h:outputText value = "#{garage.manu_code}"/>
-			</h:column>
+				<h:commandButton value="Add Manufacturer" action = "add-manufacturer-form" />
+			 <br/>
 			
-			<h:column>
-				<f:facet class = "header" name = "header">
-					<h:outputText value = "Manufacturer Name"/>
-				</f:facet>
-				<h:outputText value = "#{garage.manu_name}"/>
-			</h:column>
-			
-			<h:column>
-				<f:facet class = "header" name = "header">
-					<h:outputText value = "Manufacturer Details"/>
-				</f:facet>
-				<h:outputText value = "#{garage.manu_details}"/>
-			</h:column>
-			
-			<h:column>
-				<f:facet class = "header" name = "header">
-					<h:outputText value = "Action"/>
-				</f:facet>
-<!-- https://myfaces.apache.org/wiki/core/user-guide/jsf-and-myfaces-howtos/working-with-tables/executing-methods-from-link-or-button-inside-a-table.html -->
-				<h:link value = "Update" outcome = "update-manufacturer"/><br/>
-				<h:link value = "Delete" outcome = "delete"/>
-			</h:column>
-		</h:dataTable>
+			<h:dataTable value="#{garageController.manufacturers}" var="garage"
+						 styleClass = "garageTable"
+						 headerClass = "tableHeader"
+						 rowClasses = "tableOddRow, tableEvenRow">
+				<h:column>
+					<f:facet class = "header" name = "header">
+						<h:outputText value = "Manufacturer Code"/>
+					</f:facet>
+					<h:outputText value = "#{garage.manu_code}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet class = "header" name = "header">
+						<h:outputText value = "Manufacturer Name"/>
+					</f:facet>
+					<h:outputText value = "#{garage.manu_name}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet class = "header" name = "header">
+						<h:outputText value = "Manufacturer Details"/>
+					</f:facet>
+					<h:outputText value = "#{garage.manu_details}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet class = "header" name = "header">
+						<h:outputText value = "Action"/>
+					</f:facet>
+	<!-- https://myfaces.apache.org/wiki/core/user-guide/jsf-and-myfaces-howtos/working-with-tables/executing-methods-from-link-or-button-inside-a-table.html -->
+					<h:commandLink></h:commandLink> <br/>
+					<h:link value = "Delete" outcome = "delete"/>
+				</h:column>
+			</h:dataTable>
+		</h:form>
 		
 		<br/> <h:link value = "Home" outcome = "index"/><br/>
 	</h:body>

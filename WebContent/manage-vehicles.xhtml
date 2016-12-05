@@ -4,12 +4,76 @@
 		  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 	  	  xmlns:f="http://xmlns.jcp.org/jsf/core">
 	  	  
-	<head>  
+	<h:head>  
+	<!-- Import stylesheet  -->
+		<h:outputStylesheet library="css" name="style.css"  />
         <title>Manage Vehicles</title>
-	</head>
+        
+        <f:metadata>
+			<f:event listener="#{garageController.loadVehicles()}"
+				type="preRenderView" />
+		</f:metadata>
+	</h:head>
 	
-	<body>
-
+	<h:body>
+		<h:form>
+			<h:commandButton value = "Add Vehicle" action = "add-vehicle-form"></h:commandButton>
 		
-	</body>
+			<h:dataTable value="#{garageController.vehicles}" var="garage"
+						 styleClass = "garageTable"
+						 headerClass = "tableHeader"
+						 rowClasses = "tableOddRow, tableEvenRow">
+				<h:column>
+					<f:facet class = "header" name = "header">
+						<h:outputText value = "Registration No."/>
+					</f:facet>
+					<h:outputText value = "#{garage.reg}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet class = "header" name = "header">
+						<h:outputText value = "Manufacturer"/>
+					</f:facet>
+					<h:outputText value = "#{garage.manu_code}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet class = "header" name = "header">
+						<h:outputText value = "Model Code"/>
+					</f:facet>
+					<h:outputText value = "#{garage.model_code}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet class = "header" name = "header">
+						<h:outputText value = "Mileage"/>
+					</f:facet>
+					<h:outputText value = "#{garage.mileage}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet class = "header" name = "header">
+						<h:outputText value = "Price"/>
+					</f:facet>
+					<h:outputText value = "#{garage.price}"/>
+				</h:column>
+
+				<h:column>
+					<f:facet class = "header" name = "header">
+						<h:outputText value = "Colour"/>
+					</f:facet>
+					<h:outputText value = "#{garage.colour}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet class = "header" name = "header">
+						<h:outputText value = "Fuel"/>
+					</f:facet>
+					<h:outputText value = "#{garage.fuel}"/>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+		
+		<br/> <h:link value = "Home" outcome = "index"/><br/>
+	</h:body>
 </html>

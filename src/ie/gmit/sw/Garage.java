@@ -13,13 +13,14 @@ public class Garage {
 	private int mileage;
 	private double price;
 	private String colour;
-	private enum fuel {PETROL, DIESEL}
+	private String fuel;
+	//private enum fuel {PETROL, DIESEL}
 	
 	public Garage() {
 		super();
 	}
 
-	
+	// Constructor for manufacturer table
 	public Garage(String manu_code, String manu_name, String manu_details) {
 		super();
 		this.manu_code = manu_code;
@@ -27,9 +28,36 @@ public class Garage {
 		this.manu_details = manu_details;
 	}
 
+	// Constructor for model table
+	public Garage(String manu_code, String model_code, String model_name, String model_desc) {
+		super();
+		this.manu_code = manu_code;
+		this.model_code = model_code;
+		this.model_name = model_name;
+		this.model_desc = model_desc;
+	}
+	
+	// Constructor for vehicle table 
+	public Garage(String manu_code, String model_code, String reg, int mileage, double price, String colour, String fuel) {
+		super();
+		this.manu_code = manu_code;
+		this.model_code = model_code;
+		this.reg = reg;
+		this.mileage = mileage;
+		this.price = price;
+		this.colour = colour;
+		this.fuel = fuel;
+	}
+	
+	
+  /*     Getters/Setters           */
+	
+
 	public String getManu_code() {
 		return manu_code;
 	}
+
+
 
 	public void setManu_code(String manu_code) {
 		this.manu_code = manu_code;
@@ -105,6 +133,14 @@ public class Garage {
 
 	public void setColour(String colour) {
 		this.colour = colour;
+	}
+
+	public String getFuel() {
+		return fuel;
+	}
+
+	public void setFuel(String fuel) {
+		this.fuel = fuel;
 	};
 	
 	
