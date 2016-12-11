@@ -14,10 +14,27 @@ public class Garage {
 	private double price;
 	private String colour;
 	private String fuel;
-	//private enum fuel {PETROL, DIESEL}
+	private String priceRange; // to store user choice of "less than", "equal to" or "more than" specified price
 	
 	public Garage() {
 		super();
+	}
+	
+	// Constructor with full vehicle details
+	public Garage(String reg, String manu_code, String manu_name, String manu_details, String model_code, String model_name,
+			String model_desc, int mileage, double price, String colour, String fuel) {
+		super();
+		this.reg = reg;
+		this.manu_code = manu_code;
+		this.manu_name = manu_name;
+		this.manu_details = manu_details;
+		this.model_code = model_code;
+		this.model_name = model_name;
+		this.model_desc = model_desc;
+		this.mileage = mileage;
+		this.price = price;
+		this.colour = colour;
+		this.fuel = fuel;
 	}
 
 	// Constructor for manufacturer table
@@ -38,7 +55,19 @@ public class Garage {
 	}
 	
 	// Constructor for vehicle table 
-	public Garage(String manu_code, String model_code, String reg, int mileage, double price, String colour, String fuel) {
+	public Garage(String reg, String manu_code, String model_code, int mileage, double price, String colour, String fuel) {
+		super();
+		this.reg = reg;
+		this.manu_code = manu_code;
+		this.model_code = model_code;
+		this.mileage = mileage;
+		this.price = price;
+		this.colour = colour;
+		this.fuel = fuel;
+	}
+	
+	// Constructor for vehicle table 
+	public Garage(String reg, String manu_code, String manu_name, String model_code, String model_name, int mileage, double price, String colour, String fuel) {
 		super();
 		this.manu_code = manu_code;
 		this.model_code = model_code;
@@ -141,8 +170,13 @@ public class Garage {
 
 	public void setFuel(String fuel) {
 		this.fuel = fuel;
-	};
-	
-	
-	
+	}
+
+	public String getPriceRange() {
+		return priceRange;
+	}
+
+	public void setPriceRange(String priceRange) {
+		this.priceRange = priceRange;
+	}
 }

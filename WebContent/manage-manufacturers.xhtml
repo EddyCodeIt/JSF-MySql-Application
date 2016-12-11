@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 		  xmlns:h="http://xmlns.jcp.org/jsf/html"
-		  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 	  	  xmlns:f="http://xmlns.jcp.org/jsf/core">
 	  	  
 	<h:head>  
@@ -15,12 +14,13 @@
 	</h:head>
 	
 	<h:body>
+		<h:messages globalOnly="true" style="color: red"/>
 		<br />
 		<h:form>
 				<h:commandButton value="Add Manufacturer" action = "add-manufacturer-form" />
 			 <br/>
 			
-			<h:dataTable value="#{garageController.manufacturers}" var="garage"
+			<h:dataTable value="#{garageController.manufacturers}" var="manufacturer"
 						 styleClass = "garageTable"
 						 headerClass = "tableHeader"
 						 rowClasses = "tableOddRow, tableEvenRow">
@@ -28,30 +28,30 @@
 					<f:facet class = "header" name = "header">
 						<h:outputText value = "Manufacturer Code"/>
 					</f:facet>
-					<h:outputText value = "#{garage.manu_code}"/>
+					<h:outputText value = "#{manufacturer.manu_code}"/>
 				</h:column>
 				
 				<h:column>
 					<f:facet class = "header" name = "header">
 						<h:outputText value = "Manufacturer Name"/>
 					</f:facet>
-					<h:outputText value = "#{garage.manu_name}"/>
+					<h:outputText value = "#{manufacturer.manu_name}"/>
 				</h:column>
 				
 				<h:column>
 					<f:facet class = "header" name = "header">
 						<h:outputText value = "Manufacturer Details"/>
 					</f:facet>
-					<h:outputText value = "#{garage.manu_details}"/>
+					<h:outputText value = "#{manufacturer.manu_details}"/>
 				</h:column>
 				
 				<h:column>
 					<f:facet class = "header" name = "header">
 						<h:outputText value = "Action"/>
 					</f:facet>
-	<!-- https://myfaces.apache.org/wiki/core/user-guide/jsf-and-myfaces-howtos/working-with-tables/executing-methods-from-link-or-button-inside-a-table.html -->
-					<h:commandLink></h:commandLink> <br/>
-					<h:link value = "Delete" outcome = "delete"/>
+					<h:commandLink value = "Update" action = "#{updateManufacturerController.loadUpdatingManufacturer(manufacturer)}"/>
+					<br/>
+					<h:commandLink value="Delete" action="#{garageController.deleteManufacturer(manufacturer)}" onclick="return confirm('Delete this manufacturer?')"></h:commandLink>
 				</h:column>
 			</h:dataTable>
 		</h:form>

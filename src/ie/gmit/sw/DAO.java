@@ -126,4 +126,135 @@ public class DAO {
 		
 		myStmt.executeUpdate();
 	}// END of addVehicle
+	
+	
+	public ArrayList<Garage> getSearchedVehicleDetails(Garage vehicle) throws SQLException{
+		ArrayList<Garage> vehicles = new ArrayList<>();
+		
+		Connection conn = mysqlDS.getConnection();
+		PreparedStatement myStmt = conn.prepareStatement("select v.reg, manuf.manu_code, manuf.manu_name, model.model_code,"
+													   + " model.model_name, v.mileage, v.price, v.colour, v.fuel"
+													   + "FROM vehicle v LEFT JOIN model model"
+													   + "ON v.model_code = model.model_code"
+													   + "LEFT JOIN manufacturer manuf"
+													   + "ON v.manu_code = manuf.manu_code"
+													   + "WHERE v.fuel IN(?)");
+		ResultSet rs = myStmt.executeQuery();
+		
+		while(rs.next()) {
+			String reg = rs.getString("reg");
+			String manu_code = rs.getString("manu_code");
+			String manu_name = rs.getString("manu_name");
+			String model_code = rs.getString("model_code");
+			String model_name = rs.getString("model_name");
+			int mileage = rs.getInt("mileage");
+			double price = rs.getDouble("price");
+			String colour = rs.getString("colour");
+			String fuel = rs.getString("fuel");
+			
+			vehicles.add(new Garage(reg, manu_code, manu_name, model_code, model_name, mileage, price, colour, fuel));
+		}
+		
+		return vehicles;
+	}
+
+	public Garage findUpdatingManufacturer(Garage manufacturer) {
+			
+			Garage manufacturers = null;
+			
+			try
+			{
+			Connection conn = mysqlDS.getConnection();
+			PreparedStatement myStmt = conn.prepareStatement("Select * from manufacturer where manu_code = ?");
+			myStmt.setString(1, manufacturer.getManu_code());
+			ResultSet rs = myStmt.executeQuery();
+	
+			while (rs.next()) 
+			{
+				manufacturers = new Garage(rs.getString("manu_code"), rs.getString("manu_name"), rs.getString("manu_details"));
+			}
+			conn.close();
+			myStmt.close();
+			}
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
+			return manufacturers;
+		}
+
+	public void updateManufacturer(Garage manufacturer) throws SQLException {
+		
+		Connection conn = mysqlDS.getConnection();
+		PreparedStatement myStmt = conn.prepareStatement("Update manufacturer"
+				+ " Set manu_name = ?,"
+				+ " manu_details = ?"
+				+ " where manu_code = ?");
+	
+		myStmt.setString(1, manufacturer.getManu_name());
+		myStmt.setString(2, manufacturer.getManu_details());
+		myStmt.setString(3, manufacturer.getManu_code());
+	
+		myStmt.executeUpdate();
+		
+		conn.close();
+		myStmt.close();
+	}
+
+	public void deleteManufacturer(Garage manufacturer) throws SQLException{
+		
+		Connection conn = mysqlDS.getConnection();
+		PreparedStatement myStmt = conn.prepareStatement("delete from manufacturer where manu_code = ?");
+		
+		myStmt.setString(1, manufacturer.getManu_code());
+		
+		myStmt.executeUpdate();
+		
+		conn.close();
+		myStmt.close();
+	}
+
+	public Garage findVehicle(Garage v) {
+		Garage vehicle = null;
+		
+		try
+		{
+		Connection conn = mysqlDS.getConnection();
+		PreparedStatement myStmt = conn.prepareStatement("select v.reg, manuf.manu_code, manuf.manu_name, manuf.manu_details, "
+													   + "model.model_code, model.model_name, model.model_desc, v.mileage, v.price, "
+													   + "v.colour, v.fuel from vehicle v LEFT JOIN manufacturer manuf  "
+													   + "ON v.manu_code = manuf.manu_code "
+													   + "LEFT JOIN model model "
+													   + "ON v.model_code = model.model_code "
+													   + "where v.reg  = ?");
+		myStmt.setString(1, v.getReg());
+		ResultSet rs = myStmt.executeQuery();
+
+		while (rs.next()) 
+		{
+			String reg = rs.getString("reg");
+			String manu_code = rs.getString("manu_code");
+			String manu_name = rs.getString("manu_name");
+			String manu_details = rs.getString("manu_details");
+			String model_code = rs.getString("model_code");
+			String model_name = rs.getString("model_name");
+			String model_desc = rs.getString("model_desc");
+			int mileage = rs.getInt("mileage");
+			double price = rs.getDouble("price");
+			String colour = rs.getString("colour");
+			String fuel = rs.getString("fuel");
+			
+			System.out.println(reg);
+			vehicle = new Garage(reg, manu_code, manu_name, manu_details, model_code, 
+								 model_name, model_desc, mileage, price, colour, fuel);
+		}
+		conn.close();
+		myStmt.close();
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return vehicle;
+	}
 }

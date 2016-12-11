@@ -1,17 +1,28 @@
 package ie.gmit.sw;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+import com.mysql.jdbc.MysqlDataTruncation;
+import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
 
+@SessionScoped
 @ManagedBean
+
 public class GarageController {
-	
 	// local objects
 	private DAO dao;
+	
+	private Garage vehicle;
+	private Garage current_vehicle;
 	private ArrayList<Garage> manufacturers;
 	private ArrayList<Garage> models;
 	private ArrayList<Garage> vehicles;
@@ -39,9 +50,32 @@ public class GarageController {
 		return vehicles;
 	}
 	
+	public Garage getVehicle() {
+		return vehicle;
+	}
+
+	public void setVehicle(Garage vehicle) {
+		this.vehicle = vehicle;
+	}
+	
+	public Garage getCurrent_vehicle() {
+		return current_vehicle;
+	}
+
+	public void setCurrent_vehicle(Garage current_vehicle) {
+		this.current_vehicle = current_vehicle;
+	}
+
 	/* Loading Data from DAO */
-	public void loadManufacturers() throws Exception{
-		manufacturers = dao.getManufacturerDetails();
+	public void loadManufacturers(){
+		try {
+			manufacturers = dao.getManufacturerDetails();
+		}catch (CommunicationsException e){
+			FacesMessage message = new FacesMessage(e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, message); 
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void loadModels() throws Exception{
@@ -67,6 +101,12 @@ public class GarageController {
 		}catch (MySQLIntegrityConstraintViolationException e) {
 			FacesMessage message = new FacesMessage(e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(null, message);
+		}catch (MysqlDataTruncation e){ 
+			FacesMessage message = new FacesMessage(e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}catch (CommunicationsException e){
+			FacesMessage message = new FacesMessage(e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, message);
 		}catch (Exception e) {
 			
 			e.printStackTrace();
@@ -83,6 +123,12 @@ public class GarageController {
 			FacesContext.getCurrentInstance().getExternalContext().redirect("manage-models.xhtml");
 			
 		}catch (MySQLIntegrityConstraintViolationException e) {
+			FacesMessage message = new FacesMessage(e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}catch (MysqlDataTruncation e){ 
+			FacesMessage message = new FacesMessage(e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}catch (CommunicationsException e){
 			FacesMessage message = new FacesMessage(e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(null, message);
 		}catch (Exception e) {
@@ -103,19 +149,45 @@ public class GarageController {
 		}catch (MySQLIntegrityConstraintViolationException e) {
 			FacesMessage message = new FacesMessage(e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(null, message);
+		}catch (MysqlDataTruncation e){ 
+			FacesMessage message = new FacesMessage(e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}catch (CommunicationsException e){
+			FacesMessage message = new FacesMessage(e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, message);
 		}catch (Exception e) {
 			
 			e.printStackTrace();
-		}
+		}		
 	} // END of addManufacturer()
+
+	// delete manufacturer
+	public void deleteManufacturer(Garage manufacturer){
+		try{
+			dao.deleteManufacturer(manufacturer);
+			
+			FacesContext.getCurrentInstance().getExternalContext().redirect("manage-manufacturers.xhtml");
+		}catch (MySQLIntegrityConstraintViolationException e) {
+			FacesMessage message = new FacesMessage(e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}		
+	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	public String sendToVehicleDetails(Garage current_vehicle){
+		setCurrent_vehicle(current_vehicle);
+		return "show-vehicle";
+	}
+	public void loadVehicleDetails() throws Exception {
+		try
+		{
+			vehicle = dao.findVehicle(getCurrent_vehicle());			
+		} 
+		catch (Exception e) 
+		{
+			e.getMessage();
+		}
+	}
 }

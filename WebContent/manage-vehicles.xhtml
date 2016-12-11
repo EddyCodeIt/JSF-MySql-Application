@@ -19,7 +19,7 @@
 		<h:form>
 			<h:commandButton value = "Add Vehicle" action = "add-vehicle-form"></h:commandButton>
 		
-			<h:dataTable value="#{garageController.vehicles}" var="garage"
+			<h:dataTable value="#{garageController.vehicles}" var="vehicle"
 						 styleClass = "garageTable"
 						 headerClass = "tableHeader"
 						 rowClasses = "tableOddRow, tableEvenRow">
@@ -27,49 +27,56 @@
 					<f:facet class = "header" name = "header">
 						<h:outputText value = "Registration No."/>
 					</f:facet>
-					<h:outputText value = "#{garage.reg}"/>
+					<h:outputText value = "#{vehicle.reg}"/>
 				</h:column>
 				
 				<h:column>
 					<f:facet class = "header" name = "header">
 						<h:outputText value = "Manufacturer"/>
 					</f:facet>
-					<h:outputText value = "#{garage.manu_code}"/>
+					<h:outputText value = "#{vehicle.manu_code}"/>
 				</h:column>
 				
 				<h:column>
 					<f:facet class = "header" name = "header">
 						<h:outputText value = "Model Code"/>
 					</f:facet>
-					<h:outputText value = "#{garage.model_code}"/>
+					<h:outputText value = "#{vehicle.model_code}"/>
 				</h:column>
 				
 				<h:column>
 					<f:facet class = "header" name = "header">
 						<h:outputText value = "Mileage"/>
 					</f:facet>
-					<h:outputText value = "#{garage.mileage}"/>
+					<h:outputText value = "#{vehicle.mileage}"/>
 				</h:column>
 				
 				<h:column>
 					<f:facet class = "header" name = "header">
 						<h:outputText value = "Price"/>
 					</f:facet>
-					<h:outputText value = "#{garage.price}"/>
+					<h:outputText value = "#{vehicle.price}"/>
 				</h:column>
 
 				<h:column>
 					<f:facet class = "header" name = "header">
 						<h:outputText value = "Colour"/>
 					</f:facet>
-					<h:outputText value = "#{garage.colour}"/>
+					<h:outputText value = "#{vehicle.colour}"/>
 				</h:column>
 				
 				<h:column>
 					<f:facet class = "header" name = "header">
 						<h:outputText value = "Fuel"/>
 					</f:facet>
-					<h:outputText value = "#{garage.fuel}"/>
+					<h:outputText value = "#{vehicle.fuel}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet class = "header" name = "header">
+						<h:outputText value = "Action"/>
+					</f:facet>
+					<h:commandLink value = "All Details" action = "#{garageController.sendToVehicleDetails(vehicle)}"/>
 				</h:column>
 			</h:dataTable>
 		</h:form>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+		  xmlns:h="http://xmlns.jcp.org/jsf/html"
+		  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	  	  xmlns:f="http://xmlns.jcp.org/jsf/core">
+	  	  
+	<h:head>  
+	<!-- Import stylesheet  -->
+		<h:outputStylesheet library="css" name="style.css"  />
+        <title>Show Vehicle</title>
+        <f:metadata>
+			<f:event listener="#{garageController.loadVehicleDetails()}"
+				type="preRenderView" />
+		</f:metadata>
+	</h:head>
+	
+	<h:body>
+		<h1>Full Vehicle Details</h1>
+	
+		Registration: <h:outputText id = "manu_code" value="#{garageController.vehicle.reg}"/> <br/>
+		Manufacturer Code: <h:outputText id = "manu_code" value="#{garageController.vehicle.manu_code}"/> <br/>
+		Manufacturer Name: <h:outputText id = "manu_code" value="#{garageController.vehicle.manu_name}"/> <br/>
+		Manufacturer Details: <h:outputText id = "manu_code" value="#{garageController.vehicle.manu_details}"/> <br/>
+		Model Code: <h:outputText id = "manu_code" value="#{garageController.vehicle.model_code}"/> <br/>
+		Model Name: <h:outputText id = "manu_code" value="#{garageController.vehicle.model_name}"/> <br/>
+		Model Descripriton: <h:outputText id = "manu_code" value="#{garageController.vehicle.model_desc}"/> <br/>
+		Mileage: <h:outputText id = "manu_code" value="#{garageController.vehicle.mileage}"/> <br/>
+		Price: <h:outputText id = "manu_code" value="#{garageController.vehicle.price}"/> <br/>
+		Colour: <h:outputText id = "manu_code" value="#{garageController.vehicle.colour}"/> <br/>
+		Fuel: <h:outputText id = "manu_code" value="#{garageController.vehicle.fuel}"/> <br/> <br/>
+		
+		<h:link value = "Home" outcome = "index" style="margin-right: 5px;"/>
+		<h:link value = "Vehicles" outcome = "manage-vehicles"/>
+	</h:body>
+</html>

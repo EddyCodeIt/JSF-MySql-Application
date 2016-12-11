@@ -17,7 +17,6 @@
 		<h:form>
 			Code: <h:inputText id = "manu_code" required="true" requiredMessage="This field is required!" 
 							   value="#{garage.manu_code}" p:placeholder="Enter manufaturer code"/>
-		    <h:message for = "manu_code" style = "red"/>
 		    <br/><br/>
 		    Name: <h:inputText id = "manu_name" required="true" requiredMessage="This field is required!" 
 							   value="#{garage.manu_name}" p:placeholder="Enter manufaturer name"/>
@@ -25,7 +24,7 @@
 		    <br/><br/>
 		    Description: <h:inputText id = "manu_desc" value="#{garage.manu_details}" 
 		    						  p:placeholder="Enter manufaturer description"/>
-		    <h:message for = "manu_desc" style = "red"/>
+
 		    <br/><br/>
 			<h:commandButton value="Add Manufacturer"
 			action="#{garageController.addManufacturer(garage)}" />
