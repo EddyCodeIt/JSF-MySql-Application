@@ -6,7 +6,6 @@ import javax.faces.application.FacesMessage;
 /* http://stackoverflow.com/questions/7031885/how-to-choose-the-right-bean-scope */
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -15,7 +14,6 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 
 @ManagedBean
 @SessionScoped 
-@ViewScoped
 public class UpdateManufacturerController {
 
     

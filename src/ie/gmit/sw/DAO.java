@@ -39,6 +39,8 @@ public class DAO {
 			manufacturers.add(new Garage(manu_code, manu_name, manu_details));
 		}
 		
+		conn.close();
+		myStmt.close();
 		return manufacturers;
 	}
 	
@@ -58,6 +60,8 @@ public class DAO {
 			models.add(new Garage(manu_code, model_code, model_name, model_desc));
 		}
 		
+		conn.close();
+		myStmt.close();
 		return models;
 	}
 	
@@ -80,12 +84,14 @@ public class DAO {
 			vehicles.add(new Garage(reg, manu_code, model_code, mileage, price, colour, fuel));
 		}
 		
+		conn.close();
+		myStmt.close();
 		return vehicles;
 	}
 	
 	public void addManufacturer(Garage manufacturer) throws SQLException{
 		// connect to database and prepare statement 
-		Connection conn;
+		    Connection conn;
 			conn = mysqlDS.getConnection();
 			PreparedStatement myStmt = conn.prepareStatement("INSERT INTO manufacturer values (?, ?, ?)");
 			
@@ -94,6 +100,9 @@ public class DAO {
 			myStmt.setString(3, manufacturer.getManu_details());
 			
 			myStmt.executeUpdate();
+			
+			conn.close();
+			myStmt.close();
 	}// END of addManufcaturer
 	
 	public void addModel(Garage model) throws SQLException{
@@ -108,6 +117,9 @@ public class DAO {
 		myStmt.setString(4, model.getModel_desc());
 		
 		myStmt.executeUpdate();
+		
+		conn.close();
+		myStmt.close();
 	}// END of addModel
 
 	public void addVehicle(Garage vehicle) throws SQLException{
@@ -125,20 +137,36 @@ public class DAO {
 		myStmt.setString(7, vehicle.getFuel());
 		
 		myStmt.executeUpdate();
+		
+		conn.close();
+		myStmt.close();
 	}// END of addVehicle
 	
 	
 	public ArrayList<Garage> getSearchedVehicleDetails(Garage vehicle) throws SQLException{
-		ArrayList<Garage> vehicles = new ArrayList<>();
+
+		ArrayList<Garage> vehicles = new ArrayList<>(); 
 		
 		Connection conn = mysqlDS.getConnection();
-		PreparedStatement myStmt = conn.prepareStatement("select v.reg, manuf.manu_code, manuf.manu_name, model.model_code,"
-													   + " model.model_name, v.mileage, v.price, v.colour, v.fuel"
-													   + "FROM vehicle v LEFT JOIN model model"
-													   + "ON v.model_code = model.model_code"
-													   + "LEFT JOIN manufacturer manuf"
-													   + "ON v.manu_code = manuf.manu_code"
-													   + "WHERE v.fuel IN(?)");
+		PreparedStatement myStmt = null; 
+		
+		System.out.println(vehicle.getFuel());
+		
+		if((vehicle.getColour().isEmpty()) && (vehicle.getPrice() == 0)){
+			
+			System.out.println("NO COLOR NO PRICE SPECIFIED");
+			
+			myStmt = conn.prepareStatement("select v.reg, manuf.manu_code, manuf.manu_name, model.model_code, "
+					   + "model.model_name, v.mileage, v.price, v.colour, v.fuel "
+					   + "FROM vehicle v LEFT JOIN model model "
+					   + "ON v.model_code = model.model_code "
+					   + "LEFT JOIN manufacturer manuf "
+					   + "ON v.manu_code = manuf.manu_code "
+					   + "WHERE v.fuel = ?"); 
+
+			myStmt.setString(1, vehicle.getFuel());
+		}
+				
 		ResultSet rs = myStmt.executeQuery();
 		
 		while(rs.next()) {
@@ -155,6 +183,10 @@ public class DAO {
 			vehicles.add(new Garage(reg, manu_code, manu_name, model_code, model_name, mileage, price, colour, fuel));
 		}
 		
+		System.out.println(vehicles.size());
+		
+		conn.close();
+		myStmt.close();
 		return vehicles;
 	}
 

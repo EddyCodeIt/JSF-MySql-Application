@@ -7,7 +7,7 @@
 	<h:head>  
 	<!-- Import stylesheet  -->
 		<h:outputStylesheet library="css" name="style.css"  />
-        <title>Add Vehicle</title>
+        <title>Find Vehicles</title>
         
 	</h:head>
 	
@@ -18,16 +18,24 @@
 		    
 		    <br/><br/>
 
-		    
+		    Price: <h:selectOneMenu id = "priceRange" value = "#{garage.priceRange}" style="margin-right: 5px">
+		    	   		<f:selectItem itemValue="Less Than" itemLabel="Less Than" />
+		    	   		<f:selectItem itemValue="More Than" itemLabel="More Than" />
+		    	   		<f:selectItem itemValue="Equal To" itemLabel="Equal To" />
+		    	   </h:selectOneMenu>
+		    	   
+		    	   <h:inputText id = "price" value = "#{garage.price}"/>
+		    <br/><br/>	  
+		   	Colour: <h:inputText id = "colour" value = "#{garage.colour}"/>
 		    <br/><br/>
 		    Fuel: <h:selectOneMenu id = "fuel" value = "#{garage.fuel}">
-		    	<f:selectItem itemValue="1" itemLabel="petrol" />
-		    	<f:selectItem itemValue="2" itemLabel="diesel" />
+		    	<f:selectItem itemValue="petrol" itemLabel="petrol" />
+		    	<f:selectItem itemValue="diesel" itemLabel="diesel" />
 		    </h:selectOneMenu>
 		    
 		    <br/><br/>
 			<h:commandButton value="Search Vehicle"
-			action="#{searchController.searchVehicles(garage)}" />
+			action="#{searchController.vehiclesToFind(garage)}" />
 			
 			<br/>
 			<h:link value = "Home" outcome = "index"/>			

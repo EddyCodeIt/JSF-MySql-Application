@@ -79,11 +79,26 @@ public class GarageController {
 	}
 	
 	public void loadModels() throws Exception{
-		models = dao.getModelDetails();
+		try {
+			models = dao.getModelDetails();
+		}catch (CommunicationsException e){
+			FacesMessage message = new FacesMessage(e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, message); 
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void loadVehicles() throws Exception{
-		vehicles = dao.getVehicleDetails();
+		try {
+			vehicles = dao.getVehicleDetails();
+		}catch (CommunicationsException e){
+			FacesMessage message = new FacesMessage(e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, message); 
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	
@@ -167,6 +182,7 @@ public class GarageController {
 			dao.deleteManufacturer(manufacturer);
 			
 			FacesContext.getCurrentInstance().getExternalContext().redirect("manage-manufacturers.xhtml");
+			
 		}catch (MySQLIntegrityConstraintViolationException e) {
 			FacesMessage message = new FacesMessage(e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(null, message);
@@ -175,11 +191,13 @@ public class GarageController {
 		}		
 	}
 	
+	/*** FULL VEHICLE DETAILS ***/
 	
 	public String sendToVehicleDetails(Garage current_vehicle){
 		setCurrent_vehicle(current_vehicle);
 		return "show-vehicle";
 	}
+	
 	public void loadVehicleDetails() throws Exception {
 		try
 		{

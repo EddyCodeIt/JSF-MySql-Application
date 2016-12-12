@@ -49,9 +49,9 @@
 					<f:facet class = "header" name = "header">
 						<h:outputText value = "Action"/>
 					</f:facet>
-					<h:commandLink value = "Update" action = "#{updateManufacturerController.loadUpdatingManufacturer(manufacturer)}"/>
-					<br/>
-					<h:commandLink value="Delete" action="#{garageController.deleteManufacturer(manufacturer)}" onclick="return confirm('Delete this manufacturer?')"></h:commandLink>
+					<h:commandLink value = "Update" action = "#{updateManufacturerController.loadUpdatingManufacturer(manufacturer)}"/><br/>
+					<h:commandLink value="Delete" action="#{garageController.deleteManufacturer(manufacturer)}" 
+					onclick="return confirm('Delete this manufacturer?')"></h:commandLink>		 
 				</h:column>
 			</h:dataTable>
 		</h:form>

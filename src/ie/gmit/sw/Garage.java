@@ -19,7 +19,8 @@ public class Garage {
 	public Garage() {
 		super();
 	}
-	
+
+
 	// Constructor with full vehicle details
 	public Garage(String reg, String manu_code, String manu_name, String manu_details, String model_code, String model_name,
 			String model_desc, int mileage, double price, String colour, String fuel) {
@@ -177,6 +178,17 @@ public class Garage {
 	}
 
 	public void setPriceRange(String priceRange) {
-		this.priceRange = priceRange;
+		
+		if(priceRange.equals("Less Than")){
+			this.priceRange = "<";
+		}
+		else if(priceRange.equals("More Than")){
+			this.priceRange = ">";
+		}
+		else if(priceRange.equals("Equal To")){
+			this.priceRange = "=";
+		}
 	}
+	
+	
 }

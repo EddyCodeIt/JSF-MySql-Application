@@ -15,6 +15,7 @@
 	</h:head>
 	
 	<h:body>
+		<h:messages globalOnly="true" style="color: red"/>
 		<h1>Full Vehicle Details</h1>
 	
 		Registration: <h:outputText id = "manu_code" value="#{garageController.vehicle.reg}"/> <br/>
@@ -29,7 +30,7 @@
 		Colour: <h:outputText id = "manu_code" value="#{garageController.vehicle.colour}"/> <br/>
 		Fuel: <h:outputText id = "manu_code" value="#{garageController.vehicle.fuel}"/> <br/> <br/>
 		
-		<h:link value = "Home" outcome = "index" style="margin-right: 5px;"/>
+		<h:link value = "Home" outcome = "index" style="margin-right: 5px"/>
 		<h:link value = "Vehicles" outcome = "manage-vehicles"/>
 	</h:body>
 </html>

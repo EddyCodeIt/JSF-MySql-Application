@@ -10,7 +10,7 @@
         <title>Manage Vehicles</title>
         
         <f:metadata>
-			<f:event listener="#{garageController.loadVehicles()}"
+			<f:event listener="#{searchController.loadSearchedVehicles()}"
 				type="preRenderView" />
 		</f:metadata>
 	</h:head>
@@ -18,9 +18,7 @@
 	<h:body>
 		<h:messages globalOnly="true" style="color: red"/>
 		<h:form>
-			<h:commandButton value = "Add Vehicle" action = "add-vehicle-form"></h:commandButton>
-		
-			<h:dataTable value="#{garageController.vehicles}" var="vehicle"
+			<h:dataTable value="#{searchController.searchedVehicles}" var="vehicle"
 						 styleClass = "garageTable"
 						 headerClass = "tableHeader"
 						 rowClasses = "tableOddRow, tableEvenRow">
@@ -76,12 +74,13 @@
 				<h:column>
 					<f:facet class = "header" name = "header">
 						<h:outputText value = "Action"/>
-					</f:facet> 
+					</f:facet>
 					<h:commandLink value = "All Details" action = "#{garageController.sendToVehicleDetails(vehicle)}"/>
 				</h:column>
 			</h:dataTable>
 		</h:form>
-		
-		<br/> <h:link value = "Home" outcome = "index"/><br/>
+		<br/>
+		<h:link value = "Home" outcome = "index" style="margin-right: 5px"/> 
+		<h:link value = "Search more" outcome = "find-vehicle-form"/><br/>
 	</h:body>
 </html>
