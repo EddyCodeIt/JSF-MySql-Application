@@ -48,10 +48,43 @@ public class SearchController {
 			setVehicle(conditions);
 			return "found-vehicles";
 		}
+		
+		/* Create query */
+		public String preparedQuery(){
+			
+			
+			String price = String.valueOf(vehicle.getPrice());
+			String query = "select v.reg, manuf.manu_code, manuf.manu_name, model.model_code, "
+					     + "model.model_name, v.mileage, v.price, v.colour, v.fuel "
+					     + "FROM vehicle v LEFT JOIN model model "
+					     + "ON v.model_code = model.model_code "
+					     + "LEFT JOIN manufacturer manuf "
+					     + "ON v.manu_code = manuf.manu_code "
+					     + "WHERE v.fuel IN('"+ vehicle.getFuel() +"')";
+			
+			if(!(vehicle.getColour().isEmpty())){
+				query += " AND colour IN('" + vehicle.getColour() + "')";
+			}
+			
+			if(vehicle.getPrice() != 0){
+				switch(vehicle.getPriceRange()){
+					case ">": query += " AND price > " + price;
+							  break;
+					case "<": query += " AND price < " + price;
+					  		  break;
+					case "=": query += " AND price = " + price;
+					  		  break;
+				}
+			}
+			
+			
+			return query;
+		}
+		
 		/* Loading Data from DAO */
 		public void loadSearchedVehicles(){
 			try {
-				searchedVehicles = dao.getSearchedVehicleDetails(getVehicle());
+				searchedVehicles = dao.getSearchedVehicleDetails(preparedQuery());
 			}catch (CommunicationsException e){
 				FacesMessage message = new FacesMessage(e.getMessage());
 				FacesContext.getCurrentInstance().addMessage(null, message); 

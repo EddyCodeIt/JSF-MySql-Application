@@ -143,29 +143,15 @@ public class DAO {
 	}// END of addVehicle
 	
 	
-	public ArrayList<Garage> getSearchedVehicleDetails(Garage vehicle) throws SQLException{
+	public ArrayList<Garage> getSearchedVehicleDetails(String query) throws SQLException{
 
 		ArrayList<Garage> vehicles = new ArrayList<>(); 
 		
+		System.out.println(query);
 		Connection conn = mysqlDS.getConnection();
-		PreparedStatement myStmt = null; 
-		
-		System.out.println(vehicle.getFuel());
-		
-		if((vehicle.getColour().isEmpty()) && (vehicle.getPrice() == 0)){
-			
-			System.out.println("NO COLOR NO PRICE SPECIFIED");
-			
-			myStmt = conn.prepareStatement("select v.reg, manuf.manu_code, manuf.manu_name, model.model_code, "
-					   + "model.model_name, v.mileage, v.price, v.colour, v.fuel "
-					   + "FROM vehicle v LEFT JOIN model model "
-					   + "ON v.model_code = model.model_code "
-					   + "LEFT JOIN manufacturer manuf "
-					   + "ON v.manu_code = manuf.manu_code "
-					   + "WHERE v.fuel = ?"); 
+		PreparedStatement myStmt = conn.prepareStatement(query); 
 
-			myStmt.setString(1, vehicle.getFuel());
-		}
+		
 				
 		ResultSet rs = myStmt.executeQuery();
 		

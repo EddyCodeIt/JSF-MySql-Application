@@ -179,15 +179,15 @@ public class Garage {
 
 	public void setPriceRange(String priceRange) {
 		
-		if(priceRange.equals("Less Than")){
-			this.priceRange = "<";
-		}
-		else if(priceRange.equals("More Than")){
-			this.priceRange = ">";
-		}
-		else if(priceRange.equals("Equal To")){
-			this.priceRange = "=";
-		}
+			if(priceRange.equals("Less Than")){
+				this.priceRange = "<";
+			}
+			else if(priceRange.equals("More Than")){
+				this.priceRange = ">";
+			}
+			else if(priceRange.equals("Equal To")){
+				this.priceRange = "=";
+			}
 	}
 	
 	
